@@ -12,8 +12,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val toolbar = findViewById(R.id.toolbar) as Toolbar
-        // Crashes the app:
-        //setSupportActionBar(toolbar)
+        setSupportActionBar(toolbar)
     }
 
     fun changeFragment(f: Fragment, cleanStack: Boolean = false) {
