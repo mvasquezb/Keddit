@@ -33,6 +33,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'org.ocpsoft.prettytime:prettytime:3.2.7.Final'
 }
 repositories {
     mavenCentral()
