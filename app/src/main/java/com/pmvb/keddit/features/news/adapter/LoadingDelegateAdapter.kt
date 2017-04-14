@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import com.pmvb.keddit.commons.adapter.ViewTypeDelegateAdapter
 import com.pmvb.keddit.commons.adapter.ViewType
 import com.pmvb.keddit.R
-import com.pmvb.keddit.commons.inflate
+import com.pmvb.keddit.commons.extensions.inflate
 
 class LoadingDelegateAdapter: ViewTypeDelegateAdapter {
     override fun onCreateViewHolder(parent: ViewGroup) = TurnsViewHolder(parent)

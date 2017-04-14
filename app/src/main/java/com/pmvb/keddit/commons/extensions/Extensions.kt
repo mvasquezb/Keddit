@@ -1,6 +1,6 @@
 @file:JvmName("ExtensionsUtils")
 
-package com.pmvb.keddit.commons
+package com.pmvb.keddit.commons.extensions
 
 import android.view.LayoutInflater
 import android.view.View
