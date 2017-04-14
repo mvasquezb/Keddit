@@ -17,8 +17,7 @@ class NewsDelegateAdapter: ViewTypeDelegateAdapter {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: ViewType) {
-        holder as TurnsViewHolder
-        holder.bind(item as RedditNewsItem)
+        (holder as TurnsViewHolder).bind(item as RedditNewsItem)
     }
 
     class TurnsViewHolder(parent: ViewGroup): RecyclerView.ViewHolder(
