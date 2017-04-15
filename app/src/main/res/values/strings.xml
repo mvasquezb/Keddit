@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Keddit</string>
-    <string name="comment_count">$1%s comments</string>
+    <string name="comment_count">%1$d comments</string>
 </resources>
