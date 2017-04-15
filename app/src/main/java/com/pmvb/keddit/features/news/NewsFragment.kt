@@ -27,7 +27,6 @@ class NewsFragment : Fragment() {
         news_list.layoutManager = LinearLayoutManager(context)
 
         initAdapter()
-
         if (savedInstanceState == null) {
             val news = mutableListOf<RedditNewsItem>()
             (1..10).map {
@@ -40,7 +39,7 @@ class NewsFragment : Fragment() {
                         "url"
                 ))
             }
-            (news_list as NewsAdapter).addNews(news)
+            (news_list.adapter as NewsAdapter).addNews(news)
         }
     }
 
