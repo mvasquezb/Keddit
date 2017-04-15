@@ -31,12 +31,12 @@ class NewsFragment : Fragment() {
             val news = mutableListOf<RedditNewsItem>()
             (1..10).map {
                 news.add(RedditNewsItem(
-                        "author$it",
-                        "Title $it",
-                        it,
-                        Date().time - it * 200,
-                        "http://lorempixel.com/200/200/technics/$it",
-                        "url"
+                        author = "author$it",
+                        title = "Title $it",
+                        numComments = it,
+                        created = Date().time - it * 1000 * 3600,
+                        thumbnail = "http://lorempixel.com/200/200/technics/$it",
+                        url = "url"
                 ))
             }
             (news_list.adapter as NewsAdapter).addNews(news)
