@@ -3,18 +3,17 @@ package com.pmvb.keddit.features.news
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.pmvb.keddit.R
-import com.pmvb.keddit.commons.inflate
+import com.pmvb.keddit.commons.RedditNewsItem
+import com.pmvb.keddit.commons.extensions.inflate
+import com.pmvb.keddit.features.news.adapter.NewsAdapter
 import kotlinx.android.synthetic.main.news_fragment.news_list
+import java.util.*
 
 class NewsFragment : Fragment() {
-    private val newsList by lazy {
-        news_list
-    }
 
     override fun onCreateView(
             inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -24,7 +23,29 @@ class NewsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        newsList.setHasFixedSize(true)
-        newsList.layoutManager = LinearLayoutManager(context)
+        news_list.setHasFixedSize(true)
+        news_list.layoutManager = LinearLayoutManager(context)
+
+        initAdapter()
+        if (savedInstanceState == null) {
+            val news = mutableListOf<RedditNewsItem>()
+            (1..10).map {
+                news.add(RedditNewsItem(
+                        "author$it",
+                        "Title $it",
+                        it,
+                        Date().time - it * 200,
+                        "http://lorempixel.com/200/200/technics/$it",
+                        "url"
+                ))
+            }
+            (news_list.adapter as NewsAdapter).addNews(news)
+        }
+    }
+
+    private fun initAdapter() {
+        if (news_list.adapter == null) {
+            news_list.adapter = NewsAdapter()
+        }
     }
 }

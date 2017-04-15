@@ -11,10 +11,10 @@
         android:id="@+id/img_thumbnail"
         android:layout_width="50dip"
         android:layout_height="50dip"
-        android:layout_marginTop="10dip"
-        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginRight="5dp" />
+        android:layout_marginLeft="5dp" />
 
     <!-- Description -->
     <TextView
@@ -36,6 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/description"
         android:layout_alignStart="@+id/description"
+        android:layout_below="@+id/description"
         android:textColor="#343434"
         android:textSize="10sp"
         tools:ignore="SmallSp"
@@ -47,7 +48,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/author"
-        android:layout_alignStart="@+id/author"
         android:layout_below="@+id/description"
         android:gravity="right"
         android:textColor="#10bcc9"
