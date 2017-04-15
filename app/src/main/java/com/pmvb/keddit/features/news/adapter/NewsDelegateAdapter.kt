@@ -27,7 +27,7 @@ class NewsDelegateAdapter: ViewTypeDelegateAdapter {
             img_thumbnail.loadImage(item.thumbnail)
             description.text = item.title
             author.text = item.author
-            comments.text = resources.getString(R.string.comment_count)
+            comments.text = resources.getString(R.string.comment_count, item.numComments)
             time.text = item.created.friendlyTime()
         }
     }
