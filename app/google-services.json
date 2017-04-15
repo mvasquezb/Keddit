@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1049395843398",
+    "firebase_url": "https://keddit-ebd8d.firebaseio.com",
+    "project_id": "keddit-ebd8d",
+    "storage_bucket": "keddit-ebd8d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1049395843398:android:ffdee27b4fa5f96e",
+        "android_client_info": {
+          "package_name": "com.pmvb.keddit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1049395843398-3fbegpliiq5qivjj0mrpuific0suja25.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pmvb.keddit",
+            "certificate_hash": "80ed45054831aaeac9203c608938bbbdf4782815"
+          }
+        },
+        {
+          "client_id": "1049395843398-ujv8nbo9jlrrtbqskp3iohi24j4lj126.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDEWFFaP1KMrjvZCm-Cw2-kfhHzzKpWvM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1049395843398-ujv8nbo9jlrrtbqskp3iohi24j4lj126.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
