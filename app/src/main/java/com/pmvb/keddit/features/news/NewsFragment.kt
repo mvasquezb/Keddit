@@ -1,17 +1,17 @@
 package com.pmvb.keddit.features.news
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.pmvb.keddit.R
-import com.pmvb.keddit.commons.RedditNewsItem
 import com.pmvb.keddit.commons.extensions.inflate
 import com.pmvb.keddit.features.news.adapter.NewsAdapter
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.news_fragment.news_list
-import java.util.*
 
 class NewsFragment : Fragment() {
 
@@ -37,7 +37,18 @@ class NewsFragment : Fragment() {
     }
 
     private fun requestNews() {
-        // (news_list.adapter as NewsAdapter).addNews(news)
+        val subscription = newsManager.getNews()
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        {
+                            retrievedNews ->
+                            (news_list.adapter as NewsAdapter).addNews(retrievedNews)
+                        },
+                        {
+                            e ->
+                            Snackbar.make(news_list, e.message ?: "", Snackbar.LENGTH_LONG).show()
+                        }
+                )
     }
 
     private fun initAdapter() {
