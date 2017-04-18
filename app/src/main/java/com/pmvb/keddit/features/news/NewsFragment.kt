@@ -2,7 +2,6 @@ package com.pmvb.keddit.features.news
 
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +11,7 @@ import com.pmvb.keddit.commons.RxBaseFragment
 import com.pmvb.keddit.commons.extensions.inflate
 import com.pmvb.keddit.features.news.adapter.NewsAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.news_fragment.news_list
 
 class NewsFragment : RxBaseFragment() {
@@ -39,7 +39,8 @@ class NewsFragment : RxBaseFragment() {
 
     private fun requestNews() {
         val subscription = newsManager.getNews()
-                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         {
                             retrievedNews ->
