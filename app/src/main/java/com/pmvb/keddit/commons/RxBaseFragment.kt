@@ -13,9 +13,6 @@ open class RxBaseFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        if (!subscriptions.isDisposed) {
-            subscriptions.dispose()
-        }
         subscriptions.clear()
     }
 }
