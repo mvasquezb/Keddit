@@ -8,12 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.pmvb.keddit.R
+import com.pmvb.keddit.commons.RxBaseFragment
 import com.pmvb.keddit.commons.extensions.inflate
 import com.pmvb.keddit.features.news.adapter.NewsAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.news_fragment.news_list
 
-class NewsFragment : Fragment() {
+class NewsFragment : RxBaseFragment() {
 
     private val newsManager by lazy {
         NewsManager()
@@ -49,6 +50,7 @@ class NewsFragment : Fragment() {
                             Snackbar.make(news_list, e.message ?: "", Snackbar.LENGTH_LONG).show()
                         }
                 )
+        subscriptions.add(subscription)
     }
 
     private fun initAdapter() {
