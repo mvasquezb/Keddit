@@ -21,6 +21,7 @@ class NewsManager {
                 ))
             }
             subscriber.onNext(news)
+            subscriber.onComplete()
         }
     }
 }
