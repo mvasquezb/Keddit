@@ -13,7 +13,7 @@ class RedditChildrenResponse(val data: RedditNewsDataResponse)
 class RedditNewsDataResponse(
         val author: String,
         val title: String,
-        val numComments: Int,
+        val num_comments: Int,
         val created: Long,
         val thumbnail: String,
         val url: String
