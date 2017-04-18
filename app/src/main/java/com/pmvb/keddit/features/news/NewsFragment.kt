@@ -15,6 +15,10 @@ import java.util.*
 
 class NewsFragment : Fragment() {
 
+    private val newsManager by lazy {
+        NewsManager()
+    }
+
     override fun onCreateView(
             inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return container?.inflate(R.layout.news_fragment)
@@ -28,19 +32,12 @@ class NewsFragment : Fragment() {
 
         initAdapter()
         if (savedInstanceState == null) {
-            val news = mutableListOf<RedditNewsItem>()
-            (1..10).map {
-                news.add(RedditNewsItem(
-                        author = "author$it",
-                        title = "Title $it",
-                        numComments = it,
-                        created = Date().time - it * 1000 * 3600,
-                        thumbnail = "http://lorempixel.com/200/200/technics/$it",
-                        url = "url"
-                ))
-            }
-            (news_list.adapter as NewsAdapter).addNews(news)
+            requestNews()
         }
+    }
+
+    private fun requestNews() {
+        // (news_list.adapter as NewsAdapter).addNews(news)
     }
 
     private fun initAdapter() {
