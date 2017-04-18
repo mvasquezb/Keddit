@@ -1,27 +1,35 @@
 package com.pmvb.keddit.features.news
 
+import android.util.Log
+import com.pmvb.keddit.api.RestAPI
 import com.pmvb.keddit.commons.RedditNewsItem
 import io.reactivex.Observable
-import java.util.Date
 
-class NewsManager {
-    fun getNews(): Observable<List<RedditNewsItem>> {
+class NewsManager(private val api: RestAPI = RestAPI()) {
+    fun getNews(limit: Int = 10): Observable<List<RedditNewsItem>> {
         return Observable.create {
             subscriber ->
+            val apiCall = api.getNews(limit = limit, after = "")
+            val response = apiCall.execute()
 
-            val news = mutableListOf<RedditNewsItem>()
-            (1..10).map {
-                news.add(RedditNewsItem(
-                        author = "author$it",
-                        title = "Title $it",
-                        numComments = it,
-                        created = Date().time - it * 1000 * 3600,
-                        thumbnail = "http://lorempixel.com/200/200/technics/$it",
-                        url = "url"
-                ))
+            if (response.isSuccessful) {
+                val news = response.body().data.children.map {
+                    val item = it.data
+                    RedditNewsItem(
+                            author = item.author,
+                            title = item.title,
+                            numComments = item.num_comments,
+                            created = item.created * 1000, // Convert to milliseconds
+                            thumbnail = item.thumbnail,
+                            url = item.url
+                    )
+                }
+                subscriber.onNext(news)
+                subscriber.onComplete()
+            } else {
+                subscriber.onError(Throwable(response.message()))
             }
-            subscriber.onNext(news)
-            subscriber.onComplete()
+
         }
     }
 }
