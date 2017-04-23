@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.pmvb.keddit.R
+import com.pmvb.keddit.commons.InfiniteScrollListener
+import com.pmvb.keddit.commons.RedditNewsPage
 import com.pmvb.keddit.commons.RxBaseFragment
 import com.pmvb.keddit.commons.extensions.inflate
 import com.pmvb.keddit.features.news.adapter.NewsAdapter
@@ -16,6 +18,7 @@ import kotlinx.android.synthetic.main.news_fragment.news_list
 
 class NewsFragment : RxBaseFragment() {
 
+    private var redditNewsPage: RedditNewsPage? = null
     private val newsManager by lazy {
         NewsManager()
     }
@@ -29,7 +32,10 @@ class NewsFragment : RxBaseFragment() {
         super.onActivityCreated(savedInstanceState)
 
         news_list.setHasFixedSize(true)
-        news_list.layoutManager = LinearLayoutManager(context)
+        val linearLayout = LinearLayoutManager(context)
+        news_list.layoutManager = linearLayout
+        news_list.clearOnScrollListeners()
+        news_list.addOnScrollListener(InfiniteScrollListener({ requestNews() }, linearLayout))
 
         initAdapter()
         if (savedInstanceState == null) {
@@ -38,13 +44,15 @@ class NewsFragment : RxBaseFragment() {
     }
 
     private fun requestNews() {
-        val subscription = newsManager.getNews()
-                .subscribeOn(Schedulers.io())
+        val subscription = newsManager.getNews(
+                after = redditNewsPage?.after ?: ""
+                ).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         {
                             retrievedNews ->
-                            (news_list.adapter as NewsAdapter).addNews(retrievedNews)
+                            redditNewsPage = retrievedNews
+                            (news_list.adapter as NewsAdapter).addNews(retrievedNews.news)
                         },
                         {
                             e ->

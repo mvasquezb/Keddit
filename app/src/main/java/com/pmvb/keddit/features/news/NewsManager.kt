@@ -1,6 +1,5 @@
 package com.pmvb.keddit.features.news
 
-import android.util.Log
 import com.pmvb.keddit.api.RestAPI
 import com.pmvb.keddit.commons.RedditNewsItem
 import com.pmvb.keddit.commons.RedditNewsPage
