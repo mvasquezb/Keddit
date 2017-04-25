@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.pmvb.keddit.R
 import com.pmvb.keddit.commons.InfiniteScrollListener
+import com.pmvb.keddit.commons.RedditNewsItem
 import com.pmvb.keddit.commons.RedditNewsPage
 import com.pmvb.keddit.commons.RxBaseFragment
 import com.pmvb.keddit.commons.extensions.inflate
@@ -17,6 +18,10 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.news_fragment.news_list
 
 class NewsFragment : RxBaseFragment() {
+
+    companion object {
+        private val NEWS_PAGE_KEY = "redditNewsPage"
+    }
 
     private var redditNewsPage: RedditNewsPage? = null
     private val newsManager by lazy {
@@ -31,15 +36,27 @@ class NewsFragment : RxBaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        news_list.setHasFixedSize(true)
-        val linearLayout = LinearLayoutManager(context)
-        news_list.layoutManager = linearLayout
-        news_list.clearOnScrollListeners()
-        news_list.addOnScrollListener(InfiniteScrollListener({ requestNews() }, linearLayout))
-
+        news_list.apply {
+            setHasFixedSize(true)
+            val linearLayout = LinearLayoutManager(context)
+            layoutManager = linearLayout
+            clearOnScrollListeners()
+            addOnScrollListener(InfiniteScrollListener({ requestNews() }, linearLayout))
+        }
         initAdapter()
         if (savedInstanceState == null) {
             requestNews()
+        } else if (savedInstanceState.containsKey(NEWS_PAGE_KEY)) {
+            redditNewsPage = savedInstanceState.get(NEWS_PAGE_KEY) as RedditNewsPage
+            (news_list.adapter as NewsAdapter).setNews(redditNewsPage!!.news)
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val news = (news_list.adapter as NewsAdapter).getNews()
+        if (redditNewsPage != null && news.size > 0) {
+            outState.putParcelable(NEWS_PAGE_KEY, redditNewsPage?.copy(news = news))
         }
     }
 
