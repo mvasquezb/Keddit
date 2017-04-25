@@ -41,20 +41,20 @@ class NewsFragment : RxBaseFragment() {
             val linearLayout = LinearLayoutManager(context)
             layoutManager = linearLayout
             clearOnScrollListeners()
-            addOnScrollListener(InfiniteScrollListener({ requestNews() }, linearLayout)
+            addOnScrollListener(InfiniteScrollListener({ requestNews() }, linearLayout))
         }
         initAdapter()
         if (savedInstanceState == null) {
             requestNews()
         } else if (savedInstanceState.containsKey(NEWS_PAGE_KEY)) {
             redditNewsPage = savedInstanceState.get(NEWS_PAGE_KEY) as RedditNewsPage
-            (news_list as NewsAdapter).setNews(redditNewsPage!!.news)
+            (news_list.adapter as NewsAdapter).setNews(redditNewsPage!!.news)
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        val news = (news_list as NewsAdapter).getNews()
+        val news = (news_list.adapter as NewsAdapter).getNews()
         if (redditNewsPage != null && news.size > 0) {
             outState.putParcelable(NEWS_PAGE_KEY, redditNewsPage?.copy(news = news))
         }
