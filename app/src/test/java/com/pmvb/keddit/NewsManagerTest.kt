@@ -15,8 +15,6 @@ import retrofit2.Call
 import retrofit2.Response
 import java.util.*
 
-inline fun <reified T : Any> mock(): T = Mockito.mock(T::class.java)
-
 class NewsManagerTest {
     var testSub = TestObserver<RedditNewsPage>()
     var mockAPI = mock<NewsAPI>()
