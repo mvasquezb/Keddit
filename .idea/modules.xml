@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Keddit.iml" filepath="$PROJECT_DIR$/Keddit.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file:///run/media/pmvb/Data/Projets/Android/Keddit/Keddit.iml" filepath="/run/media/pmvb/Data/Projets/Android/Keddit/Keddit.iml" />
+      <module fileurl="file:///run/media/pmvb/Data/Projets/Android/Keddit/app/app.iml" filepath="/run/media/pmvb/Data/Projets/Android/Keddit/app/app.iml" />
     </modules>
   </component>
 </project>
