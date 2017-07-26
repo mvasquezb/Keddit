@@ -1,11 +1,12 @@
 package com.pmvb.keddit.features.news
 
+import com.pmvb.keddit.api.NewsAPI
 import com.pmvb.keddit.api.NewsRestAPI
 import com.pmvb.keddit.commons.RedditNewsItem
 import com.pmvb.keddit.commons.RedditNewsPage
 import io.reactivex.Observable
 
-class NewsManager(private val api: NewsRestAPI = NewsRestAPI()) {
+class NewsManager(private val api: NewsAPI = NewsRestAPI()) {
     fun getNews(after: String = "", limit: Int = 10): Observable<RedditNewsPage> {
         return Observable.create {
             subscriber ->
