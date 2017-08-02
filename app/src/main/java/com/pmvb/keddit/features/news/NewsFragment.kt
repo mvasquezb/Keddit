@@ -1,11 +1,14 @@
 package com.pmvb.keddit.features.news
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.pmvb.keddit.KedditApp
 import com.pmvb.keddit.R
 import com.pmvb.keddit.commons.InfiniteScrollListener
@@ -14,12 +17,18 @@ import com.pmvb.keddit.commons.RedditNewsPage
 import com.pmvb.keddit.commons.RxBaseFragment
 import com.pmvb.keddit.commons.extensions.inflate
 import com.pmvb.keddit.features.news.adapter.NewsAdapter
+import com.pmvb.keddit.features.news.adapter.NewsDelegateAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.news_fragment.news_list
 import javax.inject.Inject
 
-class NewsFragment : RxBaseFragment() {
+class NewsFragment : RxBaseFragment(), NewsDelegateAdapter.onViewSelectedListener {
+    override fun onItemSelected(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(url)
+        startActivity(intent)
+    }
 
     companion object {
         private val NEWS_PAGE_KEY = "redditNewsPage"
@@ -86,7 +95,7 @@ class NewsFragment : RxBaseFragment() {
 
     private fun initAdapter() {
         if (news_list.adapter == null) {
-            news_list.adapter = NewsAdapter()
+            news_list.adapter = NewsAdapter(this)
         }
     }
 }

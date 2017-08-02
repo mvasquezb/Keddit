@@ -1,6 +1,7 @@
 package com.pmvb.keddit.features.news.adapter
 
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.view.ViewGroup
 import com.pmvb.keddit.R
 import com.pmvb.keddit.commons.RedditNewsItem
@@ -11,7 +12,12 @@ import com.pmvb.keddit.commons.extensions.inflate
 import com.pmvb.keddit.commons.extensions.loadImage
 import kotlinx.android.synthetic.main.news_item.view.*
 
-class NewsDelegateAdapter: ViewTypeDelegateAdapter {
+class NewsDelegateAdapter(val listener: onViewSelectedListener): ViewTypeDelegateAdapter {
+
+    interface onViewSelectedListener {
+        fun onItemSelected(url: String)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         return NewsViewHolder(parent)
     }
@@ -20,7 +26,7 @@ class NewsDelegateAdapter: ViewTypeDelegateAdapter {
         (holder as NewsViewHolder).bind(item as RedditNewsItem)
     }
 
-    class NewsViewHolder(parent: ViewGroup): RecyclerView.ViewHolder(
+    inner class NewsViewHolder(parent: ViewGroup): RecyclerView.ViewHolder(
             parent.inflate(R.layout.news_item)
     ) {
         fun bind(item: RedditNewsItem) = with (itemView) {
@@ -29,6 +35,12 @@ class NewsDelegateAdapter: ViewTypeDelegateAdapter {
             author.text = item.author
             comments.text = resources.getString(R.string.comment_count, item.numComments)
             time.text = item.created.friendlyTime()
+            url.text = item.url
+            super.itemView.setOnClickListener(clickListener)
+        }
+
+        private val clickListener = { view: View ->
+            listener.onItemSelected(view.url.text as String)
         }
     }
 }
