@@ -35,12 +35,9 @@ class NewsDelegateAdapter(val listener: onViewSelectedListener): ViewTypeDelegat
             author.text = item.author
             comments.text = resources.getString(R.string.comment_count, item.numComments)
             time.text = item.created.friendlyTime()
-            url.text = item.url
-            super.itemView.setOnClickListener(clickListener)
-        }
-
-        private val clickListener = { view: View ->
-            listener.onItemSelected(view.url.text as String)
+            super.itemView.setOnClickListener { view: View ->
+                listener.onItemSelected(item.url)
+            }
         }
     }
 }
